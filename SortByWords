@@ -1,0 +1,64 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class SortByWords {
+    Map<Integer, String> map = new HashMap<>();
+
+    public SortByWords() {
+        map.put(1, "one");
+        map.put(2, "two");
+        map.put(3, "three");
+        map.put(4, "four");
+        map.put(5, "five");
+        map.put(6, "six");
+        map.put(7, "seven");
+        map.put(8, "eight");
+        map.put(9, "nine");
+        map.put(10, "ten");
+    }
+
+    public void sortByWords(int[] arrayAsInt) {
+        int n = arrayAsInt.length;
+        int[] output = new int[n];
+
+
+        for (int i = 0; i < n ; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int a = arrayAsInt[i];
+                int b = arrayAsInt[j];
+
+                if (compareWord(a,b) > 0){
+                    int temp = arrayAsInt[i];
+                    arrayAsInt[i] = arrayAsInt[j];
+                    arrayAsInt[j] = temp;
+                }
+            }
+
+        }
+    }
+
+    private int compareWord(int a, int b) {
+        String wordA = map.get(a);
+        String wordB = map.get(b);
+        int l = Math.min(wordA.length(),wordB.length());
+
+        for (int i = 0; i < l; i++) {
+            if (wordA.charAt(i) != wordB.charAt(i)) {
+                return wordA.charAt(i) - wordB.charAt(i);
+            }
+        }
+        return wordA.length() - wordB.length();
+    }
+
+
+    public static void main(String[] args) {
+        SortByWords sortByWords = new SortByWords();
+
+        int[] inputArray = {2,3,5};
+        sortByWords.sortByWords(inputArray);
+
+        for (int i = 0; i < inputArray.length; i++) {
+            System.out.println(inputArray[i]);
+        }
+    }
+}
